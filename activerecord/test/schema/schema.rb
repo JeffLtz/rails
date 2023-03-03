@@ -834,6 +834,11 @@ ActiveRecord::Schema.define do
       end
     end
 
+    create_table :totems, force: true do |t|
+      t.integer :pirate_id
+      t.string :name
+    end
+
     create_table :treasures, force: :cascade do |t|
       t.string :name
       t.string :type

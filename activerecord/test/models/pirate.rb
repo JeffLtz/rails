@@ -26,6 +26,8 @@ class Pirate < ActiveRecord::Base
   has_many :treasures, as: :looter, extend: PostTreasuresExtension
   has_many :treasure_estimates, through: :treasures, source: :price_estimates
 
+  has_one :totem, autosave: true
+
   has_one :ship
   has_one :update_only_ship, class_name: "Ship"
   has_one :non_validated_ship, class_name: "Ship"

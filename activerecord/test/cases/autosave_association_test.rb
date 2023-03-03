@@ -24,6 +24,7 @@ require "models/ship_part"
 require "models/squeak"
 require "models/tag"
 require "models/tagging"
+require "models/totem"
 require "models/treasure"
 require "models/eye"
 require "models/electron"
@@ -1420,6 +1421,14 @@ class TestAutosaveAssociationOnAHasOneAssociation < ActiveRecord::TestCase
     ship.parts.build.mark_for_destruction
 
     assert_not_predicate ship, :valid?
+  end
+
+  def test_should_not_create_child_twice_when_child_updated_parent_via_before_create_callback
+    pirate = Pirate.create!(catchphrase: "Facts are useless in an argument")
+    Totem.create!(pirate: pirate, name: "David Byrne")
+
+    pp Totem.all
+    assert_equal 1, Totem.count
   end
 
   def test_recognises_inverse_polymorphic_association_changes_with_same_foreign_key
